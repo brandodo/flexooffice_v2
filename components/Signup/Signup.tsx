@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Dispatch, SetStateAction } from "react";
 import { useSignup } from "./useSignup";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 const Signup = ({
   setIsLogin,
@@ -16,6 +17,9 @@ const Signup = ({
     confirmPassword,
     signUpDispatch,
     handleSignup,
+    getRootProps,
+    getInputProps,
+    imagePreview,
   } = useSignup(setIsLogin);
 
   return (
@@ -25,6 +29,30 @@ const Signup = ({
           <img alt="Logo" className="h-24" src="flex-office-logo.png" />
         </div>
         <form className="space-y-6" onSubmit={handleSignup}>
+          <div className="space-y-1">
+            <Label
+              className="text-[#4F6F52] dark:text-[#D2E3C8]"
+              htmlFor="avatar"
+            >
+              Avatar
+            </Label>
+            <div {...getRootProps()}>
+              <input {...getInputProps()} />
+              <div>
+                {imagePreview?.length > 0 && (
+                  <Avatar className="w-24 h-24">
+                    <AvatarImage
+                      alt="@shadcn"
+                      src={imagePreview}
+                      className="object-contain object-center"
+                    />
+                  </Avatar>
+                )}
+              </div>
+              Upload or drag {imagePreview ? "a different" : "an"} image!
+            </div>
+          </div>
+
           <div className="space-y-1">
             <Label
               className="text-[#4F6F52] dark:text-[#D2E3C8]"

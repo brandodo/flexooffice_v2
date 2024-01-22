@@ -1,5 +1,15 @@
-import { Dispatch, SetStateAction, useReducer, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useMemo,
+  useReducer,
+  useState,
+} from "react";
 import { useToast } from "../ui/use-toast";
+import { useDropzone } from "@uploadthing/react/hooks";
+import { generateClientDropzoneAccept } from "uploadthing/client";
+import { useUploadThing } from "@/lib/uploadthing";
 
 const initialState = {
   name: "",
@@ -56,7 +66,7 @@ const validateEmail = async (email: string) => {
  * @param password string representing user's password input
  * @returns object to validate if user has been created
  */
-const signUpAccount = async (name, email, password) => {
+const signUpAccount = async (name, email, password, profileImageUrl) => {
   try {
     const signupRes = await fetch("/api/signup", {
       method: "POST",
@@ -67,6 +77,7 @@ const signUpAccount = async (name, email, password) => {
         name,
         email,
         password,
+        profile_image: profileImageUrl,
       }),
     });
 
@@ -84,6 +95,26 @@ export const useSignup = (setIsLogin: Dispatch<SetStateAction<boolean>>) => {
     initialState
   );
   const [emailExists, setEmailExists] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<any>(null);
+
+  const { startUpload, permittedFileInfo } = useUploadThing("imageUploader");
+
+  const fileTypes = permittedFileInfo?.config
+    ? Object.keys(permittedFileInfo?.config)
+    : [];
+
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    setSelectedImage(acceptedFiles);
+  }, []);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: fileTypes ? generateClientDropzoneAccept(fileTypes) : undefined,
+  });
+
+  const imagePreview = useMemo(() => {
+    return selectedImage ? URL.createObjectURL(selectedImage[0]) : "";
+  }, [selectedImage]);
 
   const handleSignup = async (e: any) => {
     e.preventDefault();
@@ -108,10 +139,23 @@ export const useSignup = (setIsLogin: Dispatch<SetStateAction<boolean>>) => {
       return;
     }
 
+    const imageUploadRes:
+      | {
+          name: string;
+          size: number;
+          key: string;
+          serverData: {
+            uploadedBy: string;
+          };
+          url: string;
+        }[]
+      | undefined = await startUpload(selectedImage);
+
     const signupRes = await signUpAccount(
       signUpFields.name,
       signUpFields.email,
-      signUpFields.password
+      signUpFields.password,
+      imageUploadRes?.[0]?.url
     );
 
     // Reset state on successful signup
@@ -134,5 +178,10 @@ export const useSignup = (setIsLogin: Dispatch<SetStateAction<boolean>>) => {
     confirmPassword: signUpFields.confirmPassword,
     signUpDispatch,
     handleSignup,
+    selectedImage,
+    setSelectedImage,
+    getRootProps,
+    getInputProps,
+    imagePreview,
   };
 };

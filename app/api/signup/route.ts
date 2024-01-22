@@ -5,15 +5,24 @@ import AES from "crypto-js/aes";
 
 export const POST = async (req: any) => {
   try {
-    const { name, email, password } = await req.json();
+    const { name, email, password, profile_image } = await req.json();
     const encryptPassword = await AES.encrypt(
       password,
-      process.env.AES_PASSPHRASE
+      process.env.AES_PASSPHRASE as string
     );
 
-    console.log(encryptPassword.toString());
+    const profileImage = profile_image
+      ? profile_image
+      : "public/patrick-default.jpg";
+
     await connectMongoDB();
-    await User.create({ name, email, password: encryptPassword });
+
+    await User.create({
+      name,
+      email,
+      password: encryptPassword,
+      profile_image: profileImage,
+    });
 
     return NextResponse.json({ message: "Signup Complete!" }, { status: 201 });
   } catch (error) {

@@ -4,8 +4,9 @@ import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import CryptoAES from "crypto-js/aes";
 import CryptoENC from "crypto-js/enc-utf8";
+import { Session } from "next-auth";
 
-const handler = NextAuth({
+export const authOptions = {
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -47,6 +48,25 @@ const handler = NextAuth({
     signIn: "/",
     signOut: "/",
   },
-});
+  callbacks: {
+    async session({ session }) {
+      console.log(session);
+
+      try {
+        await connectMongoDB();
+        const user = await User.findOne({ email: session?.user?.email });
+
+        session.user.profile_image = user?.profile_image;
+
+        return session;
+      } catch (err) {
+        console.log(err);
+      }
+      // return session;
+    },
+  },
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

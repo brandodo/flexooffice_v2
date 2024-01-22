@@ -4,14 +4,22 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useLogin } from "./useLogin";
+import { Loader } from "lucide-react";
 
 const Login = ({
   setIsLogin,
 }: {
   setIsLogin: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const { error, email, password, setEmail, setPassword, handleSubmit } =
-    useLogin();
+  const {
+    loading,
+    error,
+    email,
+    password,
+    setEmail,
+    setPassword,
+    handleSubmit,
+  } = useLogin();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-blue-100 dark:bg-[#4F6F52]">
@@ -66,8 +74,9 @@ const Login = ({
           <Button
             className="w-full bg-[#4F6F52] hover:bg-[#739072] dark:bg-[#D2E3C8] dark:hover:bg-[#86A789]"
             type="submit"
+            disabled={!email || !password || loading}
           >
-            Login
+            {loading ? <Loader /> : "Login"}
           </Button>
         </form>
         <div className="mt-6">
