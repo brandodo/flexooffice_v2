@@ -1,8 +1,8 @@
+import authOptions from "@/lib/configs/auth/authOptions";
 import { connectMongoDB } from "@/lib/mongodb";
 import Comment from "@/models/comment";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import { authOptions } from "../../auth/[...nextauth]/route";
 
 export const GET = async (req, { params }) => {
   await connectMongoDB();

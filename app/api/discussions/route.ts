@@ -1,8 +1,8 @@
+import authOptions from "@/lib/configs/auth/authOptions";
 import { connectMongoDB } from "@/lib/mongodb";
 import Discussion from "@/models/discussion";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import { authOptions } from "../auth/[...nextauth]/route";
 
 export const GET = async (req, res) => {
   const session = await getServerSession(authOptions);
@@ -18,7 +18,7 @@ export const GET = async (req, res) => {
 };
 
 export const POST = async (req, res) => {
-  const session = await getServerSession(authOptions);
+  const session: any = await getServerSession(authOptions);
 
   if (session) {
     const { title, body } = await req.json();

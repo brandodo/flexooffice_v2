@@ -4,7 +4,7 @@ import React from "react";
 // import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import authOptions from "@/lib/configs/auth/authOptions";
 
 /**
  * Internal API call to retrieve discussion data
