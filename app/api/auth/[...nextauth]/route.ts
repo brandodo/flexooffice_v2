@@ -6,14 +6,14 @@ import CryptoAES from "crypto-js/aes";
 import CryptoENC from "crypto-js/enc-utf8";
 import { Session } from "next-auth";
 
-export const authOptions = {
+export const authOptions: any = {
   providers: [
     CredentialsProvider({
       name: "credentials",
       credentials: {},
 
       async authorize(credentials) {
-        const { email, password } = credentials;
+        const { email, password }: any = credentials;
 
         try {
           await connectMongoDB();
