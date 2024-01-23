@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import Discussion from "@/models/discussion";
 import { NextApiRequest } from "next";
 
-export const GET = async (_: NextApiRequest, { params }) => {
+export const GET = async (req, { params }) => {
   await connectMongoDB();
 
   const { id } = params;
