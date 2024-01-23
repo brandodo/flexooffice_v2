@@ -20,29 +20,33 @@ export const GET = async (req, res) => {
 export const POST = async (req, res) => {
   const session = await getServerSession(authOptions);
 
-  console.log(session, "Session");
   if (session) {
-    // console.log(await req.json(), "JSON");
     const { title, body } = await req.json();
     await connectMongoDB();
-    const postedDate = new Date();
 
-    await Discussion.create({
-      title,
-      body,
-      author: {
-        name: session?.user?.name,
-        profile_image: session?.user?.profile_image,
-      },
-      comments: 0,
-      upvotes: 0,
-      downvotes: 0,
-    });
+    try {
+      await Discussion.create({
+        title,
+        body,
+        author: {
+          name: session?.user?.name,
+          profile_image: session?.user?.profile_image,
+        },
+        comments: 0,
+        upvotes: 0,
+        downvotes: 0,
+      });
 
-    return NextResponse.json(
-      { message: "Discussion created!" },
-      { status: 201 }
-    );
+      return NextResponse.json(
+        { message: "Discussion created!" },
+        { status: 201 }
+      );
+    } catch (err) {
+      return NextResponse.json(
+        { message: "Something went wrong!" },
+        { status: 500 }
+      );
+    }
   } else {
     return NextResponse.json({ message: "Invalid token!" }, { status: 401 });
   }

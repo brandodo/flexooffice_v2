@@ -50,8 +50,6 @@ export const authOptions = {
   },
   callbacks: {
     async session({ session }) {
-      console.log(session);
-
       try {
         await connectMongoDB();
         const user = await User.findOne({ email: session?.user?.email });

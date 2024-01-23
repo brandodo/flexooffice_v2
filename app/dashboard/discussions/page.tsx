@@ -7,13 +7,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useRouter } from "next/navigation";
-import React from "react";
-import { useGetDiscussions } from "./useGetDiscussions";
-import { DiscussionCard } from "@/components/DiscussionCard/DiscussionCard";
+import React, { Suspense } from "react";
+import DiscussionCards from "@/components/DiscussionCards/DiscussionCards";
 
 const Discussions = () => {
   const router = useRouter();
-  const { discussions } = useGetDiscussions();
 
   return (
     <section className="flex flex-col p-4 overflow-auto items-center">
@@ -51,9 +49,9 @@ const Discussions = () => {
         </Button>
       </div>
 
-      {discussions?.map((discussion) => {
-        return <DiscussionCard data={discussion} key={discussion._id} />;
-      })}
+      <Suspense fallback={<div>Loading...</div>}>
+        <DiscussionCards />
+      </Suspense>
     </section>
   );
 };
