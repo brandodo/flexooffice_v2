@@ -1,9 +1,6 @@
-"use client";
-
 import React, { Suspense } from "react";
 import { CommentInputBox } from "@/components/CommentInputBox/CommentInputBox";
 import DiscussionContent from "@/components/DiscussionContent/DiscussionContent";
-import Loading from "./loading";
 import { DiscussionSkeleton } from "./skeleton";
 
 const Discussion = ({ params }) => {
