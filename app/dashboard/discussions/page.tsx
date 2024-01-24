@@ -41,7 +41,7 @@ const Discussions = () => {
         <Button
           className="bg-gray-700 text-white rounded p-2 ml-4"
           onClick={() => {
-            console.log("clicked");
+
             router.push("/dashboard/discussions/create");
           }}
         >

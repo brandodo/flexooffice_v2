@@ -1,4 +1,5 @@
 import mongoose, { Schema, models } from "mongoose";
+import Comment from "./comment";
 
 const discussionSchema = new Schema(
   {
@@ -26,6 +27,9 @@ const discussionSchema = new Schema(
     },
     comments: {
       type: Number,
+      get: async (discussion) => {
+        return await Comment.countDocuments({ discussion_id: discussion._id });
+      },
     },
     upvotes: {
       type: Number,

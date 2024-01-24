@@ -28,7 +28,6 @@ export const useGetDiscussion = (id) => {
 
       const data = await res.json();
 
-      console.log(data);
 
       setDiscussion(data);
     };

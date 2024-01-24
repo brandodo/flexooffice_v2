@@ -12,7 +12,7 @@ export const useCommentInput = (discussionId: string) => {
   const handlePostComment = async (e) => {
     e.preventDefault();
 
-    const res = await fetch(`/api/comments/${discussionId}`, {
+    const res = await fetch(`/api/discussions/${discussionId}/comments`, {
       method: "POST",
       body: JSON.stringify({
         author: {

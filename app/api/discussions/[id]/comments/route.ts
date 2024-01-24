@@ -1,17 +1,18 @@
 import authOptions from "@/lib/configs/auth/authOptions";
 import { connectMongoDB } from "@/lib/mongodb";
 import Comment from "@/models/comment";
+import { Schema } from "mongoose";
 import { Session, getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
 export const GET = async (req, { params }) => {
   await connectMongoDB();
 
-  const { discussionId } = params;
+  const { id } = params;
 
   try {
     const comments = await Comment.find({
-      discussion_id: { $eq: discussionId[0] },
+      discussion_id: id,
     });
 
     return NextResponse.json(comments, { status: 201 });
@@ -31,17 +32,16 @@ export const POST = async (req, { params }) => {
     return NextResponse.json({ message: "Invalid token!" }, { status: 401 });
   }
 
-  const { discussionId } = params;
+  const { id } = params;
   const { author, body } = await req.json();
 
   author.id = session.user.id;
 
-  console.log(author, "author");
   await connectMongoDB();
 
   try {
     await Comment.create({
-      discussion_id: discussionId[0],
+      discussion_id: id,
       author,
       body,
       upvotes: 0,
@@ -55,6 +55,7 @@ export const POST = async (req, { params }) => {
       { status: 201 }
     );
   } catch (err) {
+    console.log(err);
     return NextResponse.json(
       { message: "Something went wrong!" },
       { status: 500 }

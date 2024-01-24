@@ -28,7 +28,7 @@ const handleGetDiscussion = async (id: string) => {
  */
 const handleGetComments = async (discussionId: string) => {
   const res = await fetch(
-    `${process.env.BASE_URL}/api/comments/${discussionId}`,
+    `${process.env.BASE_URL}/api/discussions/${discussionId}/comments`,
     {
       method: "GET",
     }
@@ -57,7 +57,6 @@ const DiscussionContent = async ({ params }) => {
     handleGetComments(params?.id),
   ]);
 
-  console.log(discussion);
   return (
     <div className="container px-4 md:px-6 flex-1 overflow-auto w-3/4">
       <div className="space-y-4">
