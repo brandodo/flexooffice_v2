@@ -3,7 +3,7 @@ import { CommentInputBox } from "@/components/CommentInputBox/CommentInputBox";
 import DiscussionContent from "@/components/DiscussionContent/DiscussionContent";
 import { DiscussionSkeleton } from "./skeleton";
 
-const Discussion = ({ params }) => {
+const Discussion = async ({ params }) => {
   return (
     <div className="w-full h-screen flex flex-col py-8 md:py-16 lg:py-20">
       {/* Discussions are rendered on server as it relies on API data */}
