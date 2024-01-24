@@ -1,7 +1,7 @@
 import { connectMongoDB } from "@/lib/mongodb";
 import { NextResponse } from "next/server";
 import Discussion from "@/models/discussion";
-import { NextApiRequest } from "next";
+import Comment from "@/models/comment";
 
 export const GET = async (req, { params }) => {
   await connectMongoDB();
@@ -9,9 +9,13 @@ export const GET = async (req, { params }) => {
   const { id } = params;
 
   try {
-    const discussions = await Discussion.findById(id);
+    const discussion = await Discussion.findById(id);
+    const commentCount = await Comment.countDocuments({
+      discussion_id: { $eq: id },
+    });
 
-    return NextResponse.json(discussions, { status: 200 });
+    discussion.comments = commentCount;
+    return NextResponse.json(discussion, { status: 200 });
   } catch (err) {
     return NextResponse.json(
       { message: "Something went wrong!" },

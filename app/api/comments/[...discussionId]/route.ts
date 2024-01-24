@@ -1,7 +1,7 @@
 import authOptions from "@/lib/configs/auth/authOptions";
 import { connectMongoDB } from "@/lib/mongodb";
 import Comment from "@/models/comment";
-import { getServerSession } from "next-auth";
+import { Session, getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
 export const GET = async (req, { params }) => {
@@ -25,7 +25,7 @@ export const GET = async (req, { params }) => {
 };
 
 export const POST = async (req, { params }) => {
-  const session = await getServerSession(authOptions);
+  const session: Session | null = await getServerSession(authOptions);
 
   if (!session) {
     return NextResponse.json({ message: "Invalid token!" }, { status: 401 });
@@ -34,6 +34,9 @@ export const POST = async (req, { params }) => {
   const { discussionId } = params;
   const { author, body } = await req.json();
 
+  author.id = session.user.id;
+
+  console.log(author, "author");
   await connectMongoDB();
 
   try {

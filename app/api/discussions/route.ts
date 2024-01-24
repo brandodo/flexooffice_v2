@@ -10,7 +10,17 @@ export const GET = async (req, res) => {
   if (session) {
     await connectMongoDB();
 
-    const discussions = await Discussion.find();
+    const discussions = await Discussion.aggregate()
+      .lookup({
+        from: "comments",
+        localField: "_id",
+        foreignField: "discussion_id",
+        as: "comments",
+      })
+      .addFields({
+        comments: { $size: "$comments" },
+      });
+
     return NextResponse.json(discussions, { status: 200 });
   } else {
     return NextResponse.json({ message: "Invalid token!" }, { status: 401 });
@@ -29,6 +39,7 @@ export const POST = async (req, res) => {
         title,
         body,
         author: {
+          id: session?.user?.id,
           name: session?.user?.name,
           profile_image: session?.user?.profile_image,
         },

@@ -47,12 +47,13 @@ const authOptions: any = {
     signOut: "/",
   },
   callbacks: {
-    async session({ session }) {
+    async session({ session, token }) {
       try {
         await connectMongoDB();
-        const user = await User.findOne({ email: session?.user?.email });
+        const user = await User.findById(token?.sub);
 
         session.user.profile_image = user?.profile_image;
+        session.user.id = user?._id;
 
         return session;
       } catch (err) {

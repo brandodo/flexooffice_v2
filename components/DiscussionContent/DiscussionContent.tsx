@@ -57,6 +57,7 @@ const DiscussionContent = async ({ params }) => {
     handleGetComments(params?.id),
   ]);
 
+  console.log(discussion);
   return (
     <div className="container px-4 md:px-6 flex-1 overflow-auto w-3/4">
       <div className="space-y-4">
@@ -68,6 +69,7 @@ const DiscussionContent = async ({ params }) => {
         </p>
       </div>
       <div className="mt-10 space-y-6">
+        <p className="text-gray-500">{discussion?.comments} Comment(s)</p>
         {comments?.length > 0 &&
           comments?.map((comment) => {
             return (

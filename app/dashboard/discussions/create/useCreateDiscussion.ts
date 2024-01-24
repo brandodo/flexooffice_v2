@@ -15,7 +15,6 @@ export const useCreateDiscussion = () => {
       body: JSON.stringify({ title, body }),
     });
 
-    console.log(response);
     if (response.ok) {
       toast({
         title: "Discussion created!",

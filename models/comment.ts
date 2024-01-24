@@ -3,10 +3,14 @@ import mongoose, { Schema, models } from "mongoose";
 const commentSchema = new Schema(
   {
     discussion_id: {
-      type: String,
+      type: Schema.ObjectId,
       required: true,
     },
     author: {
+      id: {
+        type: Schema.ObjectId,
+        required: true,
+      },
       name: {
         type: String,
         required: true,

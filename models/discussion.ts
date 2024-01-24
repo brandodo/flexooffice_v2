@@ -11,6 +11,10 @@ const discussionSchema = new Schema(
       required: true,
     },
     author: {
+      id: {
+        type: Schema.ObjectId,
+        required: true,
+      },
       name: {
         type: String,
         required: true,
