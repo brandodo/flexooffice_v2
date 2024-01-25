@@ -1,7 +1,6 @@
 import authOptions from "@/lib/configs/auth/authOptions";
 import { connectMongoDB } from "@/lib/mongodb";
 import Comment from "@/models/comment";
-import { Schema } from "mongoose";
 import { Session, getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
