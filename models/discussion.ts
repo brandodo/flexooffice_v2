@@ -11,6 +11,9 @@ const discussionSchema = new Schema(
       type: String,
       required: true,
     },
+    image: {
+      type: String,
+    },
     author: {
       id: {
         type: Schema.ObjectId,

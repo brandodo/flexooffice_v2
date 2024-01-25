@@ -58,16 +58,24 @@ const DiscussionContent = async ({ params }) => {
   ]);
 
   return (
-    <div className="container px-4 md:px-6 flex-1 overflow-auto w-3/4">
-      <div className="space-y-4">
+    <div className="container flex flex-col px-4 md:px-6 flex-1 w-3/4 overflow-hidden h-screen">
+      <div className="space-y-6">
         <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">
           {discussion?.title}
         </h1>
+        {discussion?.image && (
+          <img
+            className="w-64 rounded-lg"
+            src={discussion?.image}
+            alt="discussion image"
+          />
+        )}
+
         <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
           {discussion?.body}
         </p>
       </div>
-      <div className="mt-10 space-y-6">
+      <div className="flex flex-1 flex-col mt-10 space-y-6 overflow-y-scroll overflow-x-hidden h-auto">
         <p className="text-gray-500">{discussion?.comments} Comment(s)</p>
         {comments?.length > 0 &&
           comments?.map((comment) => {
