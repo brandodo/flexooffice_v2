@@ -44,6 +44,7 @@ export const POST = async (req, res) => {
           profile_image: session?.user?.profile_image,
         },
         comments: 0,
+        votes: [],
         upvotes: 0,
         downvotes: 0,
       });

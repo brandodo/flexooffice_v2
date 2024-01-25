@@ -44,6 +44,7 @@ export const POST = async (req, { params }) => {
       discussion_id: id,
       author,
       body,
+      votes: [],
       upvotes: 0,
       downvotes: 0,
     });

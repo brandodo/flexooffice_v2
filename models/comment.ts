@@ -24,12 +24,9 @@ const commentSchema = new Schema(
       type: String,
       required: true,
     },
-    upvotes: {
-      type: Number,
-    },
-    downvotes: {
-      type: Number,
-    },
+    votes: [Schema.Types.Mixed],
+    upvotes: Number,
+    downvotes: Number,
   },
   { timestamps: true }
 );
