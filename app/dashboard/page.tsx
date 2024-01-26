@@ -2,7 +2,6 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSession } from "next-auth/react";
-import Link from "next/link";
 
 export default function Component() {
   const { data: session } = useSession();
