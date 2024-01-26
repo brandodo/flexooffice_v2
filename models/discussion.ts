@@ -34,7 +34,7 @@ const discussionSchema = new Schema(
         return await Comment.countDocuments({ discussion_id: discussion._id });
       },
     },
-    votes: [Schema.Types.Mixed],
+    votes: [Schema.ObjectId],
     upvotes: Number,
     downvotes: Number,
   },

@@ -7,7 +7,7 @@ export const useVote = (data: any) => {
 
   const handleVote = async (voteType: "up" | "down") => {
     try {
-      const res = await fetch(`/api/discussions/${discussionId}`, {
+      const res = await fetch(`/api/discussions/${discussionId}/vote`, {
         method: "PUT",
         body: JSON.stringify({
           vote: voteType,
