@@ -47,7 +47,7 @@ const ScheduledQuickView = () => {
         <Card>
           <CardContent className="flex justify-between items-center py-5">
             <div>
-              <h3 className="font-semibold">Dave's Bday</h3>
+              <h3 className="font-semibold">My Birthday</h3>
               <p className="text-sm text-gray-500">
                 {new Date().toDateString()}
               </p>
