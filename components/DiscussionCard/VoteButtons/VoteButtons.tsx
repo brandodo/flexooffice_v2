@@ -25,9 +25,7 @@ const VoteButtons = ({ data }) => {
               setHasVoted("up");
               setDownvotes((prev) => prev - 1);
               setUpvotes((prev) => prev + 1);
-            }
-
-            if (hasVoted === "up") {
+            } else if (hasVoted === "up") {
               setHasVoted(null);
               setUpvotes((prev) => prev - 1);
             } else {
@@ -52,9 +50,7 @@ const VoteButtons = ({ data }) => {
               setHasVoted("down");
               setUpvotes((prev) => prev - 1);
               setDownvotes((prev) => prev + 1);
-            }
-
-            if (hasVoted === "down") {
+            } else if (hasVoted === "down") {
               setHasVoted(null);
               setDownvotes((prev) => prev - 1);
             } else {
