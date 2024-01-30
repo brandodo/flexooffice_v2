@@ -13,7 +13,6 @@ const VoteButtons = ({ data }) => {
     setHasVoted,
   } = useVote(data);
 
-  console.log(data);
   return (
     <div className="flex items-center gap-4">
       <div className="flex items-center gap-1">
@@ -24,16 +23,16 @@ const VoteButtons = ({ data }) => {
 
             if (hasVoted === "down") {
               setHasVoted("up");
-              setDownvotes(downvotes - 1);
-              setUpvotes(upvotes + 1);
+              setDownvotes((prev) => prev - 1);
+              setUpvotes((prev) => prev + 1);
             }
 
             if (hasVoted === "up") {
               setHasVoted(null);
-              setUpvotes(upvotes - 1);
+              setUpvotes((prev) => prev - 1);
             } else {
               setHasVoted("up");
-              setUpvotes(upvotes + 1);
+              setUpvotes((prev) => prev + 1);
             }
 
             await handleVote("up");
@@ -51,16 +50,16 @@ const VoteButtons = ({ data }) => {
 
             if (hasVoted === "up") {
               setHasVoted("down");
-              setUpvotes(upvotes - 1);
-              setDownvotes(downvotes + 1);
+              setUpvotes((prev) => prev - 1);
+              setDownvotes((prev) => prev + 1);
             }
 
             if (hasVoted === "down") {
               setHasVoted(null);
-              setDownvotes(downvotes - 1);
+              setDownvotes((prev) => prev - 1);
             } else {
               setHasVoted("down");
-              setDownvotes(downvotes + 1);
+              setDownvotes((prev) => prev + 1);
             }
 
             await handleVote("down");
