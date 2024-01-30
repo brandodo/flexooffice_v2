@@ -3,16 +3,40 @@ import { useVote } from "./useVote";
 import { Button } from "@/components/ui/button";
 
 const VoteButtons = ({ data }) => {
-  const { upvotes, downvotes, handleVote } = useVote(data);
+  const {
+    upvotes,
+    setUpvotes,
+    downvotes,
+    setDownvotes,
+    handleVote,
+    hasVoted,
+    setHasVoted,
+  } = useVote(data);
 
+  console.log(data);
   return (
     <div className="flex items-center gap-4">
       <div className="flex items-center gap-1">
         <p>{upvotes}</p>
         <Button
-          onClick={(e) => {
+          onClick={async (e) => {
             e.stopPropagation();
-            handleVote("up");
+
+            if (hasVoted === "down") {
+              setHasVoted("up");
+              setDownvotes(downvotes - 1);
+              setUpvotes(upvotes + 1);
+            }
+
+            if (hasVoted === "up") {
+              setHasVoted(null);
+              setUpvotes(upvotes - 1);
+            } else {
+              setHasVoted("up");
+              setUpvotes(upvotes + 1);
+            }
+
+            await handleVote("up");
           }}
           className="bg-clear hover:bg-gray-300"
         >
@@ -22,9 +46,24 @@ const VoteButtons = ({ data }) => {
 
       <div className="flex items-center gap-1">
         <Button
-          onClick={(e) => {
+          onClick={async (e) => {
             e.stopPropagation();
-            handleVote("down");
+
+            if (hasVoted === "up") {
+              setHasVoted("down");
+              setUpvotes(upvotes - 1);
+              setDownvotes(downvotes + 1);
+            }
+
+            if (hasVoted === "down") {
+              setHasVoted(null);
+              setDownvotes(downvotes - 1);
+            } else {
+              setHasVoted("down");
+              setDownvotes(downvotes + 1);
+            }
+
+            await handleVote("down");
           }}
           className="bg-clear hover:bg-gray-300"
         >

@@ -61,6 +61,7 @@ export const useCreateDiscussion = () => {
         });
 
         router.replace("/dashboard/discussions");
+        router.refresh();
       }
     } catch (err: any) {
       toast({

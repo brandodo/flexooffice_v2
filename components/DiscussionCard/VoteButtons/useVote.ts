@@ -4,6 +4,7 @@ export const useVote = (data: any) => {
   const discussionId = data?._id;
   const [upvotes, setUpvotes] = useState(() => data?.upvotes ?? 0);
   const [downvotes, setDownvotes] = useState(() => data?.downvotes ?? 0);
+  const [hasVoted, setHasVoted] = useState(() => data?.hasVoted);
 
   const handleVote = async (voteType: "up" | "down") => {
     try {
@@ -16,8 +17,8 @@ export const useVote = (data: any) => {
 
       if (res.ok) {
         const data = await res.json();
-        setUpvotes(() => data.data.upvotes);
-        setDownvotes(() => data.data.downvotes);
+        // setUpvotes(() => data.data.upvotes);
+        // setDownvotes(() => data.data.downvotes);
       }
     } catch (err) {
       console.log(err);
@@ -26,9 +27,11 @@ export const useVote = (data: any) => {
 
   return {
     upvotes,
-    downvotes,
     setUpvotes,
+    downvotes,
     setDownvotes,
+    hasVoted,
+    setHasVoted,
     handleVote,
   };
 };
