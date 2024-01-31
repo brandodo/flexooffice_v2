@@ -118,7 +118,7 @@ const CalendarBlock = ({ toggleView, day, index, currentDate }) => {
             {events?.map((event) => {
               return (
                 <div
-                  key={event.id}
+                  key={event._id}
                   onClick={(e) => {
                     e.stopPropagation();
                   }}
@@ -132,7 +132,7 @@ const CalendarBlock = ({ toggleView, day, index, currentDate }) => {
             {tasks?.map((task) => {
               return (
                 <div
-                  key={task.id}
+                  key={task._id}
                   onClick={(e) => {
                     e.stopPropagation();
                   }}

@@ -85,7 +85,7 @@ const ScheduledQuickView = () => {
           {showEvents &&
             events?.map((event) => {
               return (
-                <Card className="bg-blue-300">
+                <Card className="bg-blue-300" key={event._id}>
                   <CardContent className="flex justify-between items-center py-5">
                     <div>
                       <h3 className="font-semibold">{event.title}</h3>
@@ -114,7 +114,10 @@ const ScheduledQuickView = () => {
           {showTasks &&
             tasks?.map((task) => {
               return (
-                <Card className={`${PRIORITY_COLORS[task.priority]}`}>
+                <Card
+                  className={`${PRIORITY_COLORS[task.priority]}`}
+                  key={task._id}
+                >
                   <CardContent className="flex justify-between items-center py-5">
                     <div>
                       <h3 className="font-semibold">{task.title}</h3>
