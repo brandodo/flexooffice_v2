@@ -83,26 +83,6 @@ const CalendarView = () => {
                 day={day}
                 index={index}
                 currentDate={currentDate}
-                // events={events?.filter((event) => {
-                //   return (
-                //     new Date(event.scheduled_date).toDateString() ===
-                //       new Date(
-                //         currentDate.getFullYear(),
-                //         currentDate.getMonth(),
-                //         day
-                //       ).toDateString() && day > 0
-                //   );
-                // })}
-                // tasks={tasks?.filter((task) => {
-                //   return (
-                //     new Date(task.scheduled_date).toDateString() ===
-                //       new Date(
-                //         currentDate.getFullYear(),
-                //         currentDate.getMonth(),
-                //         day
-                //       ).toDateString() && day > 0
-                //   );
-                // })}
               />
             );
           })}
