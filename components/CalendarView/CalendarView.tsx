@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import { useCalendarView } from "./useCalendarView";
 import { Button } from "../ui/button";
@@ -9,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import CalendarBlock from "./CalendarBlock/CalendarBlock";
 
 const CalendarView = () => {
   const {
@@ -17,7 +19,6 @@ const CalendarView = () => {
     currentDate,
     setCurrentDate,
     daysArray,
-    handleMonthToWeek,
     handleNext,
     handlePrev,
   } = useCalendarView();
@@ -76,33 +77,33 @@ const CalendarView = () => {
         <div className="grid grid-cols-7 flex-1 border">
           {daysArray?.map((day, index) => {
             return (
-              <div
-                className={`col-span-1 border p-2 ${
-                  toggleView === "month"
-                    ? "hover:cursor-pointer hover:bg-gray-100"
-                    : ""
-                }`}
-                key={index}
-                onClick={() => {
-                  if (day > 0) {
-                    handleMonthToWeek(day);
-                  }
-                }}
-              >
-                <p
-                  className={`${
-                    new Date(
-                      currentDate.getFullYear(),
-                      currentDate.getMonth(),
-                      day
-                    ).toDateString() === new Date().toDateString()
-                      ? "rounded-full border bg-blue-300 w-max px-1"
-                      : ""
-                  }`}
-                >
-                  {day > 0 ? day : ""}
-                </p>
-              </div>
+              <CalendarBlock
+                key={`${new Date().getMonth()}-${day}-${index}`}
+                toggleView={toggleView}
+                day={day}
+                index={index}
+                currentDate={currentDate}
+                // events={events?.filter((event) => {
+                //   return (
+                //     new Date(event.scheduled_date).toDateString() ===
+                //       new Date(
+                //         currentDate.getFullYear(),
+                //         currentDate.getMonth(),
+                //         day
+                //       ).toDateString() && day > 0
+                //   );
+                // })}
+                // tasks={tasks?.filter((task) => {
+                //   return (
+                //     new Date(task.scheduled_date).toDateString() ===
+                //       new Date(
+                //         currentDate.getFullYear(),
+                //         currentDate.getMonth(),
+                //         day
+                //       ).toDateString() && day > 0
+                //   );
+                // })}
+              />
             );
           })}
         </div>

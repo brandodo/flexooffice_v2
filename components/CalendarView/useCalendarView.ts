@@ -1,8 +1,13 @@
-import { useMemo, useState } from "react";
+import { useStore } from "@/app/dashboard/schedule/store";
+import { stat } from "fs";
+import { useEffect, useMemo, useState } from "react";
 
 export const useCalendarView = () => {
   const [toggleView, setToggleView] = useState<"week" | "month">("month");
   const [currentDate, setCurrentDate] = useState(new Date());
+
+  const updateEvents = useStore((state: any) => state.updateEvents);
+  const updateTasks = useStore((state: any) => state.updateTasks);
 
   const daysInCurrentMonth = new Date(
     currentDate.getFullYear(),
@@ -85,6 +90,30 @@ export const useCalendarView = () => {
       setToggleView("week");
     }
   };
+
+  useEffect(() => {
+    const fetchEventsAndTasks = async () => {
+      const eventsRes = await fetch("/api/events", {
+        method: "GET",
+      });
+
+      if (eventsRes.ok) {
+        const data = await eventsRes.json();
+        updateEvents(data);
+      }
+
+      const tasksRes = await fetch("/api/tasks", {
+        method: "GET",
+      });
+
+      if (tasksRes.ok) {
+        const data = await tasksRes.json();
+        updateTasks(data);
+      }
+    };
+
+    fetchEventsAndTasks();
+  }, []);
 
   return {
     toggleView,

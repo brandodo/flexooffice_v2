@@ -6,5 +6,6 @@ export const config = {
     "/dashboard/settings",
     "/dashboard/discussions",
     "/dashboard/discussions/(.*)",
+    "/dashboard/schedule",
   ],
 };
