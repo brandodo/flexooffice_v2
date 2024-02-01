@@ -14,7 +14,7 @@ export const CommentInputBox = () => {
   );
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-4 sticky bottom-0 w-3/4 self-center">
+    <div className="bg-white dark:bg-gray-800 py-6 sticky bottom-0 w-full self-center border-t">
       <form className="space-y-4">
         <Textarea
           className="flex-1 min-w-0"

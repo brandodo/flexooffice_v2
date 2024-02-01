@@ -1,4 +1,4 @@
-import { useStore } from "@/app/dashboard/schedule/store";
+import { useStore } from "@/app/schedule/store";
 import { useState } from "react";
 import { toast } from "../ui/use-toast";
 

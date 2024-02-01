@@ -1,4 +1,4 @@
-import { useStore } from "@/app/dashboard/schedule/store";
+import { useStore } from "@/app/schedule/store";
 import { stat } from "fs";
 import { useEffect, useMemo, useState } from "react";
 

@@ -5,7 +5,7 @@ import React from "react";
 
 const Schedule = () => {
   return (
-    <div className="flex justify-end h-screen">
+    <div className="flex flex-1 justify-end">
       <CalendarView />
       <ScheduledQuickView />
     </div>

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import SessionWrapper from "@/components/SessionWrapper/SessionWrapper";
+import { NavigationBar } from "@/components/NavigationBar/NavigationBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,8 +19,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <SessionWrapper>{children}</SessionWrapper>
+      <body className={`${inter.className} flex flex-col h-screen`}>
+        <SessionWrapper>
+          <NavigationBar />
+          {children}
+        </SessionWrapper>
         <Toaster />
       </body>
     </html>

@@ -11,7 +11,7 @@ import {
 } from "../ui/select";
 import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
-import { useStore } from "@/app/dashboard/schedule/store";
+import { useStore } from "@/app/schedule/store";
 import { useScheduleQuickView } from "./useScheduleQuickView";
 import {
   Dialog,

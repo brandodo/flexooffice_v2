@@ -60,7 +60,7 @@ export const useCreateDiscussion = () => {
           variant: "success",
         });
 
-        router.replace("/dashboard/discussions");
+        router.replace("/discussions");
         router.refresh();
       }
     } catch (err: any) {

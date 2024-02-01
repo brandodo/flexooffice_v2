@@ -30,7 +30,7 @@ const CalendarView = () => {
   } ${currentDate.getFullYear()}`;
 
   return (
-    <div className="flex flex-col h-screen border w-3/5 p-8 gap-4">
+    <div className="flex flex-col flex-1 border w-3/5 p-8 gap-4">
       <div className="flex justify-between items-center gap-4">
         <div className="flex gap-4 items-center">
           <Button onClick={() => setCurrentDate(new Date())}>Today</Button>

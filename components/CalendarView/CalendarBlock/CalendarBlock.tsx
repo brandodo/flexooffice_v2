@@ -18,7 +18,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useStore } from "@/app/dashboard/schedule/store";
+import { useStore } from "@/app/schedule/store";
 
 const PRIORITY_MAP: ["low", "medium", "high"] = ["low", "medium", "high"];
 

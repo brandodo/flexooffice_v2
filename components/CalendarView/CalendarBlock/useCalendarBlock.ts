@@ -1,6 +1,6 @@
 "use client";
 
-import { useStore } from "@/app/dashboard/schedule/store";
+import { useStore } from "@/app/schedule/store";
 import { toast } from "@/components/ui/use-toast";
 import { useState } from "react";
 

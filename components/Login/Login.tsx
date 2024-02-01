@@ -22,7 +22,7 @@ const Login = ({
   } = useLogin();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-400">
+    <div className="min-h-screen flex items-center justify-center bg-blue-200">
       <div className="w-full max-w-md px-8 py-6 bg-green-50 rounded-lg">
         <div className="flex justify-center w-full rounded-md p-2">
           <img alt="Logo" className="h-24" src="flex-office-logo.png" />

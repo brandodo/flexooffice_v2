@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 const DiscussionHeader = () => {
   const router = useRouter();
-  
+
   return (
     <div className="flex justify-between items-center mb-4 w-3/4 px-2">
       <div className="flex gap-8">
@@ -35,7 +35,7 @@ const DiscussionHeader = () => {
       <Button
         className="bg-gray-700 text-white rounded p-2 ml-4"
         onClick={() => {
-          router.push("/dashboard/discussions/create");
+          router.push("/discussions/create");
         }}
       >
         New Post

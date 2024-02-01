@@ -58,7 +58,7 @@ const DiscussionContent = async ({ params }) => {
   ]);
 
   return (
-    <div className="container flex flex-col px-4 md:px-6 flex-1 w-3/4 overflow-hidden h-screen">
+    <div className="flex flex-col flex-1 overflow-auto gap-2 py-8">
       <div className="space-y-6">
         <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">
           {discussion?.title}
@@ -71,11 +71,12 @@ const DiscussionContent = async ({ params }) => {
           />
         )}
 
-        <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+        <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
           {discussion?.body}
         </p>
       </div>
-      <div className="flex flex-1 flex-col mt-10 space-y-6 overflow-y-scroll overflow-x-hidden h-auto">
+
+      <div className="flex flex-1 flex-col space-y-6">
         <p className="text-gray-500">{discussion?.comments} Comment(s)</p>
         {comments?.length > 0 &&
           comments?.map((comment) => {
@@ -89,16 +90,6 @@ const DiscussionContent = async ({ params }) => {
                     </div>
                   </div>
                   <p>{comment.body}</p>
-                  {/* <div className="flex items-center gap-4">
-                    <Button size="icon" variant="ghost">
-                      <XIcon className="h-5 w-5" />
-                      <span className="sr-only">Like</span>
-                    </Button>
-                    <Button size="icon" variant="ghost">
-                      <XIcon className="h-5 w-5" />
-                      <span className="sr-only">Reply</span>
-                    </Button>
-                  </div> */}
                 </div>
               </div>
             );
