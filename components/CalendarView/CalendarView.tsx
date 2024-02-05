@@ -65,7 +65,7 @@ const CalendarView = () => {
           {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => {
             return (
               <div
-                className="flex col-span-1 justify-center items-center gap-4 bg-blue-200 rounded-t-lg"
+                className="flex col-span-1 justify-center items-center gap-4 bg-blue-200 dark:bg-blue-800 rounded-t-lg"
                 key={day}
               >
                 {day}

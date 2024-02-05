@@ -25,11 +25,10 @@ import {
 } from "../ui/dialog";
 
 const PRIORITY_COLORS = {
-  low: "bg-green-300",
-  medium: "bg-yellow-300",
-  high: "bg-red-300",
+  low: "bg-green-300 dark:bg-green-900",
+  medium: "bg-yellow-300 dark:bg-yellow-900",
+  high: "bg-red-300 dark:bg-red-900",
 };
-
 const ScheduledQuickView = () => {
   const {
     filterValue,
@@ -85,11 +84,11 @@ const ScheduledQuickView = () => {
           {showEvents &&
             events?.map((event) => {
               return (
-                <Card className="bg-blue-300" key={event._id}>
+                <Card className="bg-blue-300 dark:bg-blue-900" key={event._id}>
                   <CardContent className="flex justify-between items-center py-5">
                     <div>
                       <h3 className="font-semibold">{event.title}</h3>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-500 dark:text-slate-300">
                         {new Date(event.scheduled_date).toDateString()}
                       </p>
                     </div>
@@ -121,7 +120,7 @@ const ScheduledQuickView = () => {
                   <CardContent className="flex justify-between items-center py-5">
                     <div>
                       <h3 className="font-semibold">{task.title}</h3>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-500 dark:text-slate-300">
                         {new Date(task.scheduled_date).toDateString()}
                       </p>
                     </div>

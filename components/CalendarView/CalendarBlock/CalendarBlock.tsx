@@ -23,10 +23,11 @@ import { useStore } from "@/app/schedule/store";
 const PRIORITY_MAP: ["low", "medium", "high"] = ["low", "medium", "high"];
 
 const PRIORITY_COLORS = {
-  low: "bg-green-300",
-  medium: "bg-yellow-300",
-  high: "bg-red-300",
+  low: "bg-green-300 dark:bg-green-900",
+  medium: "bg-yellow-300 dark:bg-yellow-900",
+  high: "bg-red-300 dark:bg-red-900",
 };
+
 const CalendarBlock = ({ toggleView, day, index, currentDate }) => {
   const events = useStore((state: any) =>
     state.events.filter((event) => {
@@ -82,13 +83,15 @@ const CalendarBlock = ({ toggleView, day, index, currentDate }) => {
     >
       <PopoverTrigger
         className={`border p-1 ${
-          toggleView === "month" ? "hover:cursor-pointer hover:bg-gray-100" : ""
+          toggleView === "month"
+            ? "hover:cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-900"
+            : ""
         }`}
       >
         <div
           className={`col-span-1 w-full h-full ${
             toggleView === "month"
-              ? "hover:cursor-pointer hover:bg-gray-100"
+              ? "hover:cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-900"
               : ""
           }`}
           key={index}
@@ -108,7 +111,7 @@ const CalendarBlock = ({ toggleView, day, index, currentDate }) => {
                 currentDate.getMonth(),
                 day
               ).toDateString() === new Date().toDateString()
-                ? "rounded-full border bg-blue-300 px-1"
+                ? "rounded-full border bg-blue-300 px-1 dark:bg-blue-900"
                 : ""
             } w-max`}
           >
@@ -122,7 +125,7 @@ const CalendarBlock = ({ toggleView, day, index, currentDate }) => {
                   onClick={(e) => {
                     e.stopPropagation();
                   }}
-                  className="w-full rounded h-max bg-blue-300"
+                  className="w-full rounded h-max bg-blue-300 dark:bg-blue-900"
                 >
                   <p className="font-size-12 wrap">{event.title}</p>
                 </div>
