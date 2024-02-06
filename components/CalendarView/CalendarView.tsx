@@ -11,8 +11,12 @@ import {
   SelectValue,
 } from "../ui/select";
 import CalendarBlock from "./CalendarBlock/CalendarBlock";
+import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
+import ScheduledQuickView from "../ScheduleQuickView/ScheduledQuickView";
+import { useMediaQuery } from "@/lib/hooks/use-media-query";
 
 const CalendarView = () => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const {
     toggleView,
     setToggleView,
@@ -31,7 +35,9 @@ const CalendarView = () => {
 
   return (
     <div className="flex flex-col flex-1 border w-3/5 p-8 gap-4">
-      <div className="flex justify-between items-center gap-4">
+      {isMobile && <p className="font-bold">{currentDate.toDateString()}</p>}
+
+      <div className="flex justify-between items-center gap-4 flex-wrap">
         <div className="flex gap-4 items-center">
           <Button onClick={() => setCurrentDate(new Date())}>Today</Button>
           <Button className="bg-gray-500" onClick={() => handlePrev()}>
@@ -40,27 +46,48 @@ const CalendarView = () => {
           <Button className="bg-gray-500" onClick={() => handleNext()}>
             <ChevronRightIcon />
           </Button>
-          <p className="font-bold">{calendarHeader}</p>
+          {!isMobile && <p className="font-bold">{calendarHeader}</p>}
         </div>
 
-        <Select
-          defaultValue={toggleView}
-          value={toggleView}
-          onValueChange={(val: "week" | "month") => {
-            setToggleView(val);
-          }}
-        >
-          <SelectTrigger className="w-1/4">
-            <SelectValue placeholder="Select" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="week">Week</SelectItem>
-            <SelectItem value="month">Month</SelectItem>
-          </SelectContent>
-        </Select>
+        <div className="flex gap-2 w-max">
+          <Select
+            defaultValue={toggleView}
+            value={toggleView}
+            onValueChange={(val: "week" | "month") => {
+              setToggleView(val);
+            }}
+          >
+            <SelectTrigger className="hidden md:flex">
+              <SelectValue placeholder="Select" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="week">Week</SelectItem>
+              <SelectItem value="month">Month</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <Drawer>
+            <DrawerTrigger asChild className="xl:hidden">
+              <Button>Scheduled</Button>
+            </DrawerTrigger>
+            <DrawerContent>
+              <ScheduledQuickView isDrawer />
+            </DrawerContent>
+          </Drawer>
+        </div>
       </div>
 
-      <div className="flex flex-col flex-1">
+      <div className="md:hidden h-full">
+        <CalendarBlock
+          key={`${new Date().getMonth()}-${currentDate.getDate()}`}
+          toggleView={toggleView}
+          day={currentDate.getDate()}
+          index={currentDate.getDate()}
+          currentDate={currentDate}
+        />
+      </div>
+
+      <div className="hidden md:flex flex-col flex-1">
         <div className="grid grid-cols-7">
           {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => {
             return (

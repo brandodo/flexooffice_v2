@@ -82,6 +82,9 @@ dependencies:
   uploadthing:
     specifier: ^6.2.0
     version: 6.2.0
+  vaul:
+    specifier: ^0.9.0
+    version: 0.9.0(@types/react-dom@18.0.0)(@types/react@18.2.8)(react-dom@18.0.0)(react@18.0.0)
   zustand:
     specifier: ^4.5.0
     version: 4.5.0(@types/react@18.2.8)(react@18.0.0)
@@ -4076,6 +4079,20 @@ packages:
   /v8-compile-cache@2.4.0:
     resolution: {integrity: sha512-ocyWc3bAHBB/guyqJQVI5o4BZkPhznPYUG2ea80Gond/BgNWpap8TOmLSeeQG7bnh2KMISxskdADG59j7zruhw==}
     dev: true
+
+  /vaul@0.9.0(@types/react-dom@18.0.0)(@types/react@18.2.8)(react-dom@18.0.0)(react@18.0.0):
+    resolution: {integrity: sha512-bZSySGbAHiTXmZychprnX/dE0EsSige88xtyyL3/MCRbrFotRPQZo7UdydGXZWw+CKbNOw5Ow8gwAo93/nB/Cg==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    dependencies:
+      '@radix-ui/react-dialog': 1.0.5(@types/react-dom@18.0.0)(@types/react@18.2.8)(react-dom@18.0.0)(react@18.0.0)
+      react: 18.0.0
+      react-dom: 18.0.0(react@18.0.0)
+    transitivePeerDependencies:
+      - '@types/react'
+      - '@types/react-dom'
+    dev: false
 
   /webidl-conversions@7.0.0:
     resolution: {integrity: sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==}

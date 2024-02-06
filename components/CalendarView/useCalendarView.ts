@@ -1,9 +1,13 @@
 import { useStore } from "@/app/schedule/store";
+import { useMediaQuery } from "@/lib/hooks/use-media-query";
 import { stat } from "fs";
 import { useEffect, useMemo, useState } from "react";
 
 export const useCalendarView = () => {
-  const [toggleView, setToggleView] = useState<"week" | "month">("month");
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const [toggleView, setToggleView] = useState<"day" | "week" | "month">(
+    "month"
+  );
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const updateEvents = useStore((state: any) => state.updateEvents);
@@ -81,6 +85,30 @@ export const useCalendarView = () => {
     });
   };
 
+  const handleNextDay = () => {
+    setCurrentDate((prev) => {
+      if (prev.getDate() === daysInCurrentMonth) {
+        return new Date(prev.getFullYear(), prev.getMonth() + 1, 1);
+      }
+
+      return new Date(prev.setDate(prev.getDate() + 1));
+    });
+  };
+
+  const handlePrevDay = () => {
+    setCurrentDate((prev) => {
+      if (prev.getDate() === 1) {
+        return new Date(
+          prev.getFullYear(),
+          prev.getMonth() - 1,
+          daysInCurrentMonth
+        );
+      }
+
+      return new Date(prev.setDate(prev.getDate() - 1));
+    });
+  };
+
   const handleMonthToWeek = (day: number) => {
     if (toggleView === "month") {
       setCurrentDate(
@@ -115,6 +143,14 @@ export const useCalendarView = () => {
     fetchEventsAndTasks();
   }, []);
 
+  useEffect(() => {
+    if (isMobile) {
+      setToggleView("day");
+    } else {
+      setToggleView("week");
+    }
+  }, [isMobile]);
+
   return {
     toggleView,
     setToggleView,
@@ -123,7 +159,17 @@ export const useCalendarView = () => {
     daysArray,
     daysInCurrentMonth,
     handleMonthToWeek,
-    handleNext: toggleView === "week" ? handleNextWeek : handleNextMonth,
-    handlePrev: toggleView === "week" ? handlePrevWeek : handlePrevMonth,
+    handleNext:
+      toggleView === "day"
+        ? handleNextDay
+        : toggleView === "week"
+        ? handleNextWeek
+        : handleNextMonth,
+    handlePrev:
+      toggleView === "day"
+        ? handlePrevDay
+        : toggleView === "week"
+        ? handlePrevWeek
+        : handlePrevMonth,
   };
 };

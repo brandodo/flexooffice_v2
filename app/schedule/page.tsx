@@ -5,9 +5,11 @@ import React from "react";
 
 const Schedule = () => {
   return (
-    <div className="flex flex-1 justify-end">
+    <div className="flex flex-1 justify-end overflow-hidden">
       <CalendarView />
-      <ScheduledQuickView />
+      <div className="hidden xl:flex">
+        <ScheduledQuickView />
+      </div>
     </div>
   );
 };

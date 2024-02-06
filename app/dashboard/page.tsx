@@ -11,7 +11,7 @@ export default function Component() {
   return (
     <main className="flex flex-col p-4 overflow-auto">
       <div className="flex flex-1 items-center gap-2">
-        <Avatar className="w-24 h-24">
+        <Avatar className="w-16 h-16 md:w-24 md:h-24">
           <AvatarImage
             alt="@shadcn"
             src={session?.user?.profile_image}
@@ -19,11 +19,10 @@ export default function Component() {
           />
           <AvatarFallback className="bg-lime-500 text-white">CN</AvatarFallback>
         </Avatar>
-        <div>
-          <h1 className="text-3xl font-bold">
-            Welcome back, {session?.user?.name}!
-          </h1>
-        </div>
+
+        <h1 className="text-lg md:text-3xl font-bold">
+          Welcome back, {session?.user?.name}!
+        </h1>
       </div>
 
       <section className="flex flex-col flex-1 p-4 space-y-8 md:p-6">

@@ -29,7 +29,7 @@ const PRIORITY_COLORS = {
   medium: "bg-yellow-300 dark:bg-yellow-900",
   high: "bg-red-300 dark:bg-red-900",
 };
-const ScheduledQuickView = () => {
+const ScheduledQuickView = ({ isDrawer = false }) => {
   const {
     filterValue,
     setFilterValue,
@@ -56,30 +56,26 @@ const ScheduledQuickView = () => {
   );
 
   return (
-    <div className="w-1/4 flex flex-col gap-6 border px-16 py-12">
-      <h2 className="text-2xl font-bold">Scheduled Events</h2>
+    <div className="w-full flex flex-col gap-6 xl:border px-12 py-8 xl:flex-1 overflow-hidden">
+      <Label htmlFor="filter-category">Filter by Category</Label>
+      <Select
+        defaultValue="all"
+        value={filterValue}
+        onValueChange={(val: "all" | "events" | "tasks") => {
+          setFilterValue(val);
+        }}
+      >
+        <SelectTrigger className="w-full">
+          <SelectValue placeholder="Select" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">All</SelectItem>
+          <SelectItem value="events">Events</SelectItem>
+          <SelectItem value="tasks">Tasks</SelectItem>
+        </SelectContent>
+      </Select>
 
-      <div className="space-y-2">
-        <Label htmlFor="filter-category">Filter by Category</Label>
-        <Select
-          defaultValue="all"
-          value={filterValue}
-          onValueChange={(val: "all" | "events" | "tasks") => {
-            setFilterValue(val);
-          }}
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All</SelectItem>
-            <SelectItem value="events">Events</SelectItem>
-            <SelectItem value="tasks">Tasks</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col flex-1 gap-4 max-h-96 xl:max-h-full overflow-y-scroll">
         <Dialog>
           {showEvents &&
             events?.map((event) => {

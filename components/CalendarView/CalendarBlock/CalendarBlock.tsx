@@ -82,6 +82,7 @@ const CalendarBlock = ({ toggleView, day, index, currentDate }) => {
       }}
     >
       <PopoverTrigger
+        asChild
         className={`border p-1 ${
           toggleView === "month"
             ? "hover:cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-900"
