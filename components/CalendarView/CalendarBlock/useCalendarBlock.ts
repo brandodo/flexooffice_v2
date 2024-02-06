@@ -2,7 +2,8 @@
 
 import { useStore } from "@/app/schedule/store";
 import { toast } from "@/components/ui/use-toast";
-import { useState } from "react";
+import useDebounce from "@/lib/hooks/use-debounce";
+import { useEffect, useState } from "react";
 
 export const useCalendarBlock = () => {
   const addEvent = useStore((state: any) => state.addEvent);
@@ -19,6 +20,25 @@ export const useCalendarBlock = () => {
   const [taskPriority, setTaskPriority] = useState<"low" | "medium" | "high">(
     "low"
   );
+
+  const [userSearch, setUserSearch] = useState<string>("");
+  const [userResults, setUserResults] = useState([]);
+
+  const handleSearchUser = async () => {
+    const res = await fetch("/api/users", {
+      method: "POST",
+      body: JSON.stringify({ q: userSearch }),
+    });
+
+    const data = await res.json();
+
+    if (data) {
+      console.log(data, "users");
+      setUserResults(data);
+    }
+  };
+
+  const debouncedSearch = useDebounce(userSearch, 500);
 
   const handleCreateEvent = async () => {
     try {
@@ -48,6 +68,12 @@ export const useCalendarBlock = () => {
     } catch (err) {}
   };
 
+  useEffect(() => {
+    if (debouncedSearch) {
+      handleSearchUser();
+    }
+  }, [debouncedSearch]);
+
   return {
     newEventDate,
     setNewEventDate,
@@ -62,5 +88,7 @@ export const useCalendarBlock = () => {
     description,
     setDescription,
     handleCreateEvent,
+    setUserSearch,
+    userResults
   };
 };

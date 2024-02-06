@@ -11,7 +11,13 @@ import { useCalendarBlock } from "./useCalendarBlock";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Command, CommandInput } from "@/components/ui/command";
+import {
+  Command,
+  CommandEmpty,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import {
   Tooltip,
   TooltipContent,
@@ -19,14 +25,11 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useStore } from "@/app/schedule/store";
+import EventCard from "@/components/EventCard/EventCard";
+import TaskCard from "@/components/TaskCard/TaskCard";
+import { PRIORITY_COLORS } from "@/lib/utils";
 
 const PRIORITY_MAP: ["low", "medium", "high"] = ["low", "medium", "high"];
-
-const PRIORITY_COLORS = {
-  low: "bg-green-300 dark:bg-green-900",
-  medium: "bg-yellow-300 dark:bg-yellow-900",
-  high: "bg-red-300 dark:bg-red-900",
-};
 
 const CalendarBlock = ({ toggleView, day, index, currentDate }) => {
   const events = useStore((state: any) =>
@@ -69,6 +72,8 @@ const CalendarBlock = ({ toggleView, day, index, currentDate }) => {
     description,
     setDescription,
     handleCreateEvent,
+    setUserSearch,
+    userResults,
   } = useCalendarBlock();
 
   return (
@@ -118,43 +123,21 @@ const CalendarBlock = ({ toggleView, day, index, currentDate }) => {
           >
             {day > 0 ? day : ""}
           </p>
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-3">
             {events?.map((event) => {
-              return (
-                <div
-                  key={event._id}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                  className="w-full rounded h-max bg-blue-300 dark:bg-blue-900"
-                >
-                  <p className="font-size-12 wrap">{event.title}</p>
-                </div>
-              );
+              return <EventCard event={event} />;
             })}
 
             {tasks?.map((task) => {
-              return (
-                <div
-                  key={task._id}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                  className={`w-full rounded h-max ${
-                    PRIORITY_COLORS[task.priority]
-                  }`}
-                >
-                  <p className="font-size-12 wrap">{task.title}</p>
-                </div>
-              );
+              return <TaskCard task={task} />;
             })}
 
             {selectedAnchor && (
               <PopoverAnchor>
                 <div
-                  className={`w-full rounded h-max ${
+                  className={`w-full rounded h-max p-2 ${
                     type === "event"
-                      ? "bg-blue-300"
+                      ? "bg-blue-300 dark:bg-blue-900"
                       : PRIORITY_COLORS[taskPriority]
                   }`}
                 >
@@ -206,7 +189,8 @@ const CalendarBlock = ({ toggleView, day, index, currentDate }) => {
 
             <p>From: {newEventDate?.toDateString()}</p>
             {type === "task" && (
-              <div className="flex gap-2">
+              <div className="flex gap-2 items-center">
+                <p>Priority:</p>
                 {PRIORITY_MAP.map((p) => {
                   return (
                     <TooltipProvider key={p}>
@@ -233,11 +217,19 @@ const CalendarBlock = ({ toggleView, day, index, currentDate }) => {
 
             {type === "event" && (
               <Command>
-                <CommandInput placeholder="Invite guests..." />
+                <CommandInput
+                  placeholder="Invite guests..."
+                  onChangeCapture={(e: any) => {
+                    setUserSearch(e.target.value as string);
+                  }}
+                />
 
-                {/* <CommandList>
-                <CommandEmpty>No results found.</CommandEmpty>
-              </CommandList> */}
+                <CommandList>
+                  {userResults?.map((user: any) => {
+                    return <CommandItem>{user.name}</CommandItem>;
+                  })}
+                  <CommandEmpty>No results found.</CommandEmpty>
+                </CommandList>
               </Command>
             )}
             <Textarea
