@@ -125,11 +125,11 @@ const CalendarBlock = ({ toggleView, day, index, currentDate }) => {
           </p>
           <div className="flex flex-col gap-3">
             {events?.map((event) => {
-              return <EventCard event={event} />;
+              return <EventCard key={event._id} ezvent={event} />;
             })}
 
             {tasks?.map((task) => {
-              return <TaskCard task={task} />;
+              return <TaskCard key={task?._id} task={task} />;
             })}
 
             {selectedAnchor && (
