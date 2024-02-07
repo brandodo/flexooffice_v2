@@ -1,10 +1,10 @@
 "use server";
 
 import React from "react";
-// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { getServerSession } from "next-auth";
 import authOptions from "@/lib/configs/auth/authOptions";
+import DiscussionComments from "../DiscussonComments/DiscussionComments";
+import DiscussionPostDetails from "../DiscussionPostDetails/DiscussionPostDetails";
 
 /**
  * Internal API call to retrieve discussion data
@@ -58,65 +58,17 @@ const DiscussionContent = async ({ params }) => {
   ]);
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto gap-2 py-8">
-      <div className="space-y-6">
-        <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-          {discussion?.title}
-        </h1>
-        {discussion?.image && (
-          <img
-            className="w-64 rounded-lg"
-            src={discussion?.image}
-            alt="discussion image"
-          />
-        )}
+    <div className="flex flex-col flex-1 overflow-auto gap-2 py-8 pb-24">
+      <DiscussionPostDetails
+        title={discussion?.title}
+        image={discussion?.image}
+        body={discussion?.body}
+        commentCount={discussion?.comments}
+      />
 
-        <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-          {discussion?.body}
-        </p>
-      </div>
-
-      <div className="flex flex-1 flex-col space-y-6">
-        <p className="text-gray-500">{discussion?.comments} Comment(s)</p>
-        {comments?.length > 0 &&
-          comments?.map((comment) => {
-            return (
-              <div className="flex items-start space-x-4" key={comment._id}>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    <div className="font-semibold">{comment.author.name}</div>
-                    <div className="text-gray-500 text-xs dark:text-gray-400">
-                      {new Date(comment.createdAt).toDateString()}
-                    </div>
-                  </div>
-                  <p>{comment.body}</p>
-                </div>
-              </div>
-            );
-          })}
-      </div>
+      <DiscussionComments comments={comments} />
     </div>
   );
 };
 
 export default DiscussionContent;
-
-function XIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
-    </svg>
-  );
-}
