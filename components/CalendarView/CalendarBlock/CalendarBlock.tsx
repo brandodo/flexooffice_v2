@@ -226,7 +226,9 @@ const CalendarBlock = ({ toggleView, day, index, currentDate }) => {
 
                 <CommandList>
                   {userResults?.map((user: any) => {
-                    return <CommandItem>{user.name}</CommandItem>;
+                    return (
+                      <CommandItem key={user._id}>{user.name}</CommandItem>
+                    );
                   })}
                   <CommandEmpty>No results found.</CommandEmpty>
                 </CommandList>
