@@ -10,7 +10,7 @@ export const DiscussionCard = ({ data }) => {
 
   return (
     <article
-      className="border rounded p-4 mb-4 w-3/4 hover:bg-gray-100 hover:cursor-pointer dark:hover:bg-slate-900 transition-all"
+      className="border rounded p-4 mb-4 w-full hover:bg-gray-100 hover:cursor-pointer dark:hover:bg-slate-900 transition-all"
       onClick={() => router.push(`/discussions/${data._id}`)}
     >
       <header className="flex items-center justify-between">

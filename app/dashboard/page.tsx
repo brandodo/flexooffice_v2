@@ -9,7 +9,7 @@ export default function Component() {
   const { data: session } = useSession();
 
   return (
-    <main className="flex flex-col p-4 overflow-auto">
+    <main className="flex flex-col p-6 overflow-auto">
       <div className="flex flex-1 items-center gap-2">
         <Avatar className="w-16 h-16 md:w-24 md:h-24">
           <AvatarImage

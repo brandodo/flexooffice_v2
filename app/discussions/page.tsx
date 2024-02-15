@@ -24,7 +24,7 @@ const Discussions = async () => {
   const { discussions } = await getDiscussions();
 
   return (
-    <section className="flex flex-col p-4 overflow-auto items-center">
+    <section className="flex flex-col p-6 w-full overflow-auto items-center">
       <DiscussionHeader />
 
       <Suspense fallback={<Loading />}>

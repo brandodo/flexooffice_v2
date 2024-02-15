@@ -7,6 +7,8 @@ import { Textarea } from "@/components/ui/textarea";
 import React from "react";
 import { useCreateDiscussion } from "./useCreateDiscussion";
 import Image from "next/image";
+import { redirect } from "next/navigation";
+import Link from "next/link";
 
 const Create = () => {
   const {
@@ -22,10 +24,10 @@ const Create = () => {
   } = useCreateDiscussion();
 
   return (
-    <main className="flex justify-center">
+    <main className="h-full flex">
       <form
         onSubmit={handleCreateDiscussion}
-        className="flex flex-col gap-6 p-4 md:p-6 w-3/4"
+        className="flex flex-col gap-6 p-6 w-full"
       >
         <h1 className="text-2xl font-bold">Create Discussion</h1>
         <div className="grid w-full max-w-md items-center gap-1.5">
@@ -76,13 +78,14 @@ const Create = () => {
           </div>
         </div>
 
-        <Button
-          // className="self-end"
-          type="submit"
-          disabled={!title || !body || loading}
-        >
-          Create Discussion
-        </Button>
+        <div className="flex gap-2 items-center absolute bottom-6 right-6 sm:relative sm:w-full sm:bottom-0 sm:right-0 sm:justify-end">
+          <Link href="/discussions" className="border px-4 py-2 rounded">
+            Back
+          </Link>
+          <Button type="submit" disabled={!title || !body || loading}>
+            Create Discussion
+          </Button>
+        </div>
       </form>
     </main>
   );

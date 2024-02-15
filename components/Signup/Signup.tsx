@@ -23,12 +23,12 @@ const Signup = ({
   } = useSignup(setIsLogin);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-200">
-      <div className="w-full max-w-md px-8 py-6 bg-green-50 rounded-lg border">
+    <div className="h-screen flex items-center justify-center bg-blue-200">
+      <div className="flex flex-col justify-center h-full w-full max-w-md px-8 py-6 bg-green-50 sm:h-max sm:rounded-lg sm:border">
         <div className="flex justify-center w-full rounded-md p-2">
           <img alt="Logo" className="h-24" src="flex-office-logo.png" />
         </div>
-        <form className="space-y-6" onSubmit={handleSignup}>
+        <form className="flex flex-col gap-2" onSubmit={handleSignup}>
           <div className="space-y-1">
             <Label className="text-green-700" htmlFor="avatar">
               Avatar
@@ -132,7 +132,7 @@ const Signup = ({
             />
           </div>
           <Button
-            className="w-full bg-emerald-700 hover:bg-emerald-600"
+            className="w-full bg-emerald-700 hover:bg-emerald-600 mt-3"
             type="submit"
             disabled={
               name === "" ||
@@ -144,7 +144,7 @@ const Signup = ({
             Sign Up
           </Button>
         </form>
-        <div className="mt-6">
+        <div className="mt-3">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-300" />
@@ -153,7 +153,7 @@ const Signup = ({
               <span className="px-2 bg-emerald-50 text-gray-700">or</span>
             </div>
           </div>
-          <div className="mt-6">
+          <div className="mt-3">
             <Button
               className="w-full bg-emerald-700 hover:bg-emerald-600"
               type="button"

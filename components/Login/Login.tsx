@@ -22,12 +22,12 @@ const Login = ({
   } = useLogin();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-200">
-      <div className="w-full max-w-md px-8 py-6 bg-green-50 rounded-lg">
+    <div className="h-screen flex items-center justify-center bg-blue-200">
+      <div className="flex flex-col justify-center h-full w-full max-w-md px-8 py-6 bg-green-50 sm:h-max sm:rounded-lg sm:border">
         <div className="flex justify-center w-full rounded-md p-2">
           <img alt="Logo" className="h-24" src="flex-office-logo.png" />
         </div>
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form className="space-y-3" onSubmit={handleSubmit}>
           <div className="space-y-1">
             <Label className="text-green-700" htmlFor="email">
               Email

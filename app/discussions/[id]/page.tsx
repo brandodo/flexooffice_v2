@@ -5,7 +5,7 @@ import { DiscussionSkeleton } from "./skeleton";
 
 const Discussion = async ({ params }) => {
   return (
-    <div className="container w-full flex flex-col h-screen">
+    <div className="px-6 py-0 w-full flex flex-col h-screen">
       {/* Discussions are rendered on server as it relies on API data */}
       <Suspense fallback={<DiscussionSkeleton />}>
         <DiscussionContent params={params} />

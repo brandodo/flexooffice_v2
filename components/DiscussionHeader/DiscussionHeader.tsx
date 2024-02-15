@@ -9,8 +9,8 @@ const DiscussionHeader = () => {
   const router = useRouter();
 
   return (
-    <div className="flex justify-between items-center mb-4 w-3/4 px-2">
-      <div className="flex gap-8">
+    <div className="flex justify-between items-center mb-4 w-full sm:px-2">
+      <div className="flex gap-2 sm:gap-8">
         <Popover>
           <PopoverTrigger>Most Comments</PopoverTrigger>
           <PopoverContent className="p-2 bg-white rounded shadow-lg">
